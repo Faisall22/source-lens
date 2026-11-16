@@ -108,8 +108,9 @@ def run_agent(request: str, jd: JD, candidates: list[Candidate], llm, max_steps:
                     errors.append(str(e))
             obs = {"drafted": done, "errors": errors}
         else:  # finish
-            shortlist = known
-            obs = {"shortlist": known}
+            # the order is decided in code: scored ids only, best score first
+            shortlist = sorted((i for i in known if i in cards), key=lambda i: (-cards[i].score, i))
+            obs = {"shortlist": shortlist, "dropped_unscored": [i for i in known if i not in cards]}
         if unknown:
             obs = {"result": obs, "error": f"unknown candidate ids: {unknown}"}
         trace.append({"step": step, "action": a.action, "thought": a.thought,

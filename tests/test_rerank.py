@@ -100,3 +100,14 @@ def test_skills_line_quote_capped_at_partial():
     card = score_candidate(c, REQ, StubLLM({"c1": out}))
     k = next(ch for ch in card.checks if ch.requirement == "kafka")
     assert k.grounded and k.met == "partial"
+
+
+def test_echoed_requirement_suffix_still_matches():
+    out = ChecksOut(checks=[CheckOut(requirement="kafka (required)", met="yes",
+                                     evidence_quote="Built a Kafka pipeline for payments")])
+    card = score_candidate(cand(), REQ, StubLLM({"c1": out}))
+    assert next(ch for ch in card.checks if ch.requirement == "kafka").met == "yes"
+
+
+def test_quote_wrapped_in_quotation_marks_grounded():
+    assert is_grounded("“Built a Kafka pipeline for payments.”", "Built a Kafka pipeline for payments.")

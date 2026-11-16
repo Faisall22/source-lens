@@ -132,7 +132,7 @@ class LLM:
             except Exception:
                 if attempt == MAX_ATTEMPTS - 1:
                     raise
-                self.sleep(2 ** attempt)
+                self.sleep(min(60, 10 * 2 ** attempt))  # free-tier 429s ask for ~30-60s
         raise AssertionError("unreachable")
 
     @staticmethod

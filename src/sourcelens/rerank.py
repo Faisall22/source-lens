@@ -62,12 +62,13 @@ For every requirement return:
 
 {profile}"""
 
+_KIND_SUFFIX = re.compile(r"\s*\((required|nice to have)\)\s*$", re.IGNORECASE)
 _QUOTES = str.maketrans({"“": '"', "”": '"', "‘": "'", "’": "'"})
 
 
 def _clean(s: str) -> str:
-    s = " ".join(s.translate(_QUOTES).lower().split())
-    return re.sub(r"^[-\s]+", "", s).rstrip(".")
+    s = " ".join(s.translate(_QUOTES).lower().split()).strip("\"' ")
+    return re.sub(r"^[-\s]+", "", s).rstrip(".").strip("\"' ")
 
 
 def is_grounded(quote: str, profile: str) -> bool:
@@ -101,7 +102,7 @@ def score_candidate(c: Candidate, req: Requirements, llm) -> Scorecard:
     kinds = [(r, "must") for r in req.must_have] + [(r, "nice") for r in req.nice_to_have]
     reqs = "\n".join(f"- {r} ({'required' if k == 'must' else 'nice to have'})" for r, k in kinds)
     out = llm.generate(PROMPT.format(title=req.title, reqs=reqs, profile=wrap_profile(c)), ChecksOut, system=DATA_RULE)
-    by_name = {norm(o.requirement): o for o in out.checks}
+    by_name = {norm(_KIND_SUFFIX.sub("", o.requirement)): o for o in out.checks}
     text = profile_text(c)
     checks = []
     for r, kind in kinds:

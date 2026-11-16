@@ -81,3 +81,11 @@ def test_embed_normalized_and_per_text_cache(tmp_path):
 def test_embed_replay_miss_raises(tmp_path):
     with pytest.raises(CacheMiss, match="embed"):
         make(tmp_path, None, mode="replay").embed(["new"])
+
+
+def test_backoff_long_enough_for_rate_limits(tmp_path):
+    waits = []
+    llm = LLM(mode="live", cache_dir=tmp_path, backend=FakeBackend(fail_times=3), rpm=10_000, sleep=waits.append)
+    llm.generate("x", Out)
+    backoffs = [w for w in waits if w >= 1]
+    assert backoffs == [10, 20, 40]

@@ -79,3 +79,12 @@ def test_agent_max_steps():
     r = run_agent("x", JDX, CANDS, llm, max_steps=4)
     assert not r.finished and r.steps == 4
     assert r.shortlist[0] == "c1"
+
+
+def test_agent_finish_keeps_only_scored_ids_in_score_order():
+    llm = ScriptedLLM([S("parse_jd"), S("score_candidates", candidate_ids=["c2", "c1"]),
+                       S("finish", candidate_ids=["c2", "c1"])])
+    cands = CANDS + [cand("c3", "Did nothing relevant.")]
+    llm.steps.insert(2, S("search_candidates", query="kafka", k=3))
+    r = run_agent("x", JDX, cands, llm)
+    assert r.shortlist == ["c1", "c2"]
