@@ -6,3 +6,7 @@ runs/*
 !runs/reference/
 .cache/*
 !.cache/fixtures/
+
+# planning notes (kept local)
+.superpowers/
+docs/superpowers/
