@@ -1,0 +1,1 @@
+{"model": "claude-cli:sonnet", "response": "{\"title\": \"Data Engineer\", \"must_have\": [\"sql\", \"spark\", \"airflow\", \"data modeling\", \"python\"], \"nice_to_have\": [\"dbt\", \"bigquery\"], \"min_years\": 4, \"location\": \"Pune\", \"remote_ok\": true}", "usage": {"in": 1551, "out": 204, "usd": 0.005623100000000001}, "latency_s": 3.120258943992667}

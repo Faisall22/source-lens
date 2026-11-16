@@ -1,0 +1,1 @@
+{"model": "claude-cli:sonnet", "response": "{\"thought\": \"Search returned 10 candidates. Next, score them all to pick the top 3.\", \"action\": \"score_candidates\", \"candidate_ids\": [\"c11\", \"c14\", \"c17\", \"c13\", \"c15\", \"c09\", \"c16\", \"c12\", \"c18\", \"c10\"]}", "usage": {"in": 2077, "out": 158, "usd": 0.006877100000000001}, "latency_s": 4.031632990023354}

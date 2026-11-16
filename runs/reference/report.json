@@ -1,0 +1,985 @@
+{
+  "summary": {
+    "parse": {
+      "must_precision": 1.0,
+      "must_recall": 1.0
+    },
+    "retrieval": {
+      "bm25": {
+        "recall@15": 1.0,
+        "ndcg@10": 0.8317710123134963
+      },
+      "dense": {
+        "recall@15": 1.0,
+        "ndcg@10": 0.8700102675910558
+      },
+      "hybrid": {
+        "recall@15": 1.0,
+        "ndcg@10": 0.9012737039002313
+      }
+    },
+    "rerank": {
+      "hybrid": {
+        "ndcg@5": 0.8189110314647898,
+        "p@5": 1.0
+      },
+      "reranked": {
+        "ndcg@5": 0.9963804482112504,
+        "p@5": 1.0
+      }
+    },
+    "outreach": {
+      "pass_rate": 1,
+      "n": 3
+    },
+    "end_to_end": {
+      "ndcg@5": 0.9963804482112504
+    },
+    "grounding": {
+      "claimed": 169,
+      "grounded": 169,
+      "rate": 1.0
+    },
+    "injection_probe": {
+      "profiles_scored": 9,
+      "max_score": 0.25,
+      "best_rank_if_inserted": 14,
+      "claimed": 1,
+      "ungrounded": 0
+    },
+    "traps": {
+      "hybrid": {
+        "stuffer": 0,
+        "synonym": 1,
+        "location": 3,
+        "seniority": 3,
+        "injection": 0
+      },
+      "reranked": {
+        "stuffer": 0,
+        "synonym": 3,
+        "location": 3,
+        "seniority": 0,
+        "injection": 0
+      }
+    },
+    "cost": {
+      "calls": 9,
+      "cache_hits": 204,
+      "tokens_in": 15030,
+      "tokens_out": 2140,
+      "latency_s": 34.535285445977934,
+      "cost_usd": 0.0562471,
+      "est_usd_total": 0.0562471,
+      "est_usd_per_jd": 0.018749033333333335,
+      "cost_source": "reported by backend",
+      "model": "claude-cli:sonnet",
+      "embed_model": "fastembed:BAAI/bge-small-en-v1.5"
+    }
+  },
+  "per_jd": {
+    "backend-senior": {
+      "parse": {
+        "must_precision": 1.0,
+        "must_recall": 1.0
+      },
+      "retrieval": {
+        "bm25": {
+          "recall@15": 1.0,
+          "ndcg@10": 0.7487437863890055
+        },
+        "dense": {
+          "recall@15": 1.0,
+          "ndcg@10": 0.7884482518758882
+        },
+        "hybrid": {
+          "recall@15": 1.0,
+          "ndcg@10": 0.817457698338896
+        }
+      },
+      "rerank": {
+        "hybrid": {
+          "ndcg@5": 0.7369550334663224,
+          "p@5": 1.0
+        },
+        "reranked": {
+          "ndcg@5": 0.9891413446337513,
+          "p@5": 1.0
+        }
+      },
+      "grounding": {
+        "claimed": 54,
+        "grounded": 54,
+        "rate": 1.0
+      },
+      "traps": {
+        "hybrid": {
+          "stuffer": 0,
+          "synonym": 0,
+          "location": 2,
+          "seniority": 1,
+          "injection": 0
+        },
+        "reranked": {
+          "stuffer": 0,
+          "synonym": 1,
+          "location": 1,
+          "seniority": 0,
+          "injection": 0
+        }
+      },
+      "injection_probe": {
+        "max_score": 0.13333333333333333,
+        "best_rank_if_inserted": 15,
+        "claimed": 0,
+        "ungrounded": 0,
+        "profiles_scored": 3
+      },
+      "outreach": {
+        "pass_rate": 1,
+        "n": 3
+      },
+      "end_to_end": {
+        "ndcg@5": 0.9891413446337513
+      },
+      "sample": {
+        "top": [
+          {
+            "candidate_id": "c02",
+            "checks": [
+              {
+                "requirement": "kafka",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Owned shipment-tracking microservices written in Go, consuming Kafka streams of GPS pings.",
+                "grounded": true
+              },
+              {
+                "requirement": "postgresql",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Tuned PostgreSQL queries and indexes for a 2 TB tracking database.",
+                "grounded": true
+              },
+              {
+                "requirement": "microservices",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Owned shipment-tracking microservices written in Go, consuming Kafka streams of GPS pings.",
+                "grounded": true
+              },
+              {
+                "requirement": "backend apis",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Built REST APIs and gRPC services for a fleet dashboard.",
+                "grounded": true
+              },
+              {
+                "requirement": "kubernetes",
+                "kind": "nice",
+                "met": "no",
+                "evidence_quote": "",
+                "grounded": false
+              },
+              {
+                "requirement": "aws",
+                "kind": "nice",
+                "met": "yes",
+                "evidence_quote": "Deployed services on AWS ECS with Terraform.",
+                "grounded": true
+              },
+              {
+                "requirement": "go",
+                "kind": "nice",
+                "met": "yes",
+                "evidence_quote": "Owned shipment-tracking microservices written in Go, consuming Kafka streams of GPS pings.",
+                "grounded": true
+              }
+            ],
+            "location_ok": true,
+            "years_ok": true,
+            "score": 0.9333333333333333,
+            "ungrounded": 0
+          },
+          {
+            "candidate_id": "c01",
+            "checks": [
+              {
+                "requirement": "kafka",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Built payment-ledger microservices in Python that process card events from Kafka topics.",
+                "grounded": true
+              },
+              {
+                "requirement": "postgresql",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Designed PostgreSQL schemas and partitioning for a ledger with strict idempotency.",
+                "grounded": true
+              },
+              {
+                "requirement": "microservices",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Built payment-ledger microservices in Python that process card events from Kafka topics.",
+                "grounded": true
+              },
+              {
+                "requirement": "backend apis",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Wrote REST APIs for order management used by four internal teams.",
+                "grounded": true
+              },
+              {
+                "requirement": "kubernetes",
+                "kind": "nice",
+                "met": "yes",
+                "evidence_quote": "Ran services on Kubernetes with blue-green deploys and on-call ownership.",
+                "grounded": true
+              },
+              {
+                "requirement": "aws",
+                "kind": "nice",
+                "met": "no",
+                "evidence_quote": "",
+                "grounded": false
+              },
+              {
+                "requirement": "go",
+                "kind": "nice",
+                "met": "no",
+                "evidence_quote": "",
+                "grounded": false
+              }
+            ],
+            "location_ok": true,
+            "years_ok": true,
+            "score": 0.8666666666666667,
+            "ungrounded": 0
+          },
+          {
+            "candidate_id": "c06",
+            "checks": [
+              {
+                "requirement": "kafka",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "- Split the checkout monolith into microservices and moved order events onto Kafka.",
+                "grounded": true
+              },
+              {
+                "requirement": "postgresql",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "- Designed PostgreSQL schemas for inventory and wrote REST APIs consumed by mobile apps.",
+                "grounded": true
+              },
+              {
+                "requirement": "microservices",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "- Split the checkout monolith into microservices and moved order events onto Kafka.",
+                "grounded": true
+              },
+              {
+                "requirement": "backend apis",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "- Designed PostgreSQL schemas for inventory and wrote REST APIs consumed by mobile apps.",
+                "grounded": true
+              },
+              {
+                "requirement": "kubernetes",
+                "kind": "nice",
+                "met": "no",
+                "evidence_quote": "",
+                "grounded": false
+              },
+              {
+                "requirement": "aws",
+                "kind": "nice",
+                "met": "yes",
+                "evidence_quote": "- Built Django services on AWS for a B2B catalogue.",
+                "grounded": true
+              },
+              {
+                "requirement": "go",
+                "kind": "nice",
+                "met": "no",
+                "evidence_quote": "",
+                "grounded": false
+              }
+            ],
+            "location_ok": true,
+            "years_ok": true,
+            "score": 0.8666666666666667,
+            "ungrounded": 0
+          }
+        ],
+        "drafts": [
+          {
+            "outreach": {
+              "candidate_id": "c02",
+              "subject": "Senior Backend Engineer role at Hirewise Labs",
+              "body": "Hi Priya,\n\nI'm reaching out from Hirewise Labs about our Senior Backend Engineer role. Your work owning Go microservices that consume Kafka streams of GPS pings caught our attention, as did the REST and gRPC services you built for a fleet dashboard.\n\nThe role centres on designing and running backend services and APIs, and your background looks like a close fit for that kind of work.\n\nWould you be open to a short call this week or next? I'd be glad to share more about the team and the work, and hear what you're looking for.\n\nBest,\nTalent team, Hirewise Labs"
+            },
+            "check": {
+              "word_count": 101,
+              "names_candidate": true,
+              "cites_evidence": true,
+              "no_placeholders": true,
+              "passed": true
+            }
+          },
+          {
+            "outreach": {
+              "candidate_id": "c01",
+              "subject": "Senior Backend Engineer role at Hirewise Labs",
+              "body": "Hi Arjun,\n\nI'm reaching out from Hirewise Labs about our Senior Backend Engineer role. Your work caught our attention: building Python payment-ledger microservices that process card events from Kafka topics, and designing PostgreSQL schemas and partitioning for a ledger with strict idempotency. That's the kind of careful backend work this role involves.\n\nThe position focuses on building and running backend services and APIs. Your experience running services on Kubernetes with on-call ownership also seems relevant.\n\nWould you be open to a short call this week or next? I'd be happy to share more about the team and answer any questions.\n\nWarm regards,\nTalent team, Hirewise Labs"
+            },
+            "check": {
+              "word_count": 106,
+              "names_candidate": true,
+              "cites_evidence": true,
+              "no_placeholders": true,
+              "passed": true
+            }
+          },
+          {
+            "outreach": {
+              "candidate_id": "c06",
+              "subject": "Senior Backend Engineer role at Hirewise Labs",
+              "body": "Hi Divya,\n\nYour work splitting a checkout monolith into microservices and moving order events onto Kafka caught our attention. So did the PostgreSQL schemas and REST APIs you built for inventory and mobile apps.\n\nWe're hiring a Senior Backend Engineer at Hirewise Labs to design and grow the backend services behind our hiring platform. The work centres on service architecture, event-driven systems and dependable APIs.\n\nWould you be open to a short call this week or next? I'd be glad to share more about the team and the role, and hear what you're looking for.\n\nWarm regards,\nTalent team, Hirewise Labs"
+            },
+            "check": {
+              "word_count": 101,
+              "names_candidate": true,
+              "cites_evidence": true,
+              "no_placeholders": true,
+              "passed": true
+            }
+          }
+        ],
+        "labels": {
+          "c02": 2,
+          "c01": 2,
+          "c06": 2,
+          "c07": 1,
+          "c03": 2
+        },
+        "top5": [
+          "c02",
+          "c01",
+          "c06",
+          "c07",
+          "c03"
+        ]
+      }
+    },
+    "data-engineer": {
+      "parse": {
+        "must_precision": 1.0,
+        "must_recall": 1.0
+      },
+      "retrieval": {
+        "bm25": {
+          "recall@15": 1.0,
+          "ndcg@10": 0.9497263433786365
+        },
+        "dense": {
+          "recall@15": 1.0,
+          "ndcg@10": 0.8430316392024155
+        },
+        "hybrid": {
+          "recall@15": 1.0,
+          "ndcg@10": 0.9619535147258246
+        }
+      },
+      "rerank": {
+        "hybrid": {
+          "ndcg@5": 0.876109927169651,
+          "p@5": 1.0
+        },
+        "reranked": {
+          "ndcg@5": 1.0,
+          "p@5": 1.0
+        }
+      },
+      "grounding": {
+        "claimed": 59,
+        "grounded": 59,
+        "rate": 1.0
+      },
+      "traps": {
+        "hybrid": {
+          "stuffer": 0,
+          "synonym": 0,
+          "location": 0,
+          "seniority": 1,
+          "injection": 0
+        },
+        "reranked": {
+          "stuffer": 0,
+          "synonym": 1,
+          "location": 1,
+          "seniority": 0,
+          "injection": 0
+        }
+      },
+      "injection_probe": {
+        "max_score": 0.125,
+        "best_rank_if_inserted": 16,
+        "claimed": 1,
+        "ungrounded": 0,
+        "profiles_scored": 3
+      },
+      "outreach": {
+        "pass_rate": 1,
+        "n": 3
+      },
+      "end_to_end": {
+        "ndcg@5": 1.0
+      },
+      "sample": {
+        "top": [
+          {
+            "candidate_id": "c19",
+            "checks": [
+              {
+                "requirement": "sql",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Orchestrated 120 pipelines with Airflow and wrote SQL quality checks.",
+                "grounded": true
+              },
+              {
+                "requirement": "spark",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Built Spark jobs in Python that process 2 billion sales rows a day.",
+                "grounded": true
+              },
+              {
+                "requirement": "airflow",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Orchestrated 120 pipelines with Airflow and wrote SQL quality checks.",
+                "grounded": true
+              },
+              {
+                "requirement": "data modeling",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Led data modeling for the sales warehouse and moved transforms to dbt.",
+                "grounded": true
+              },
+              {
+                "requirement": "python",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Built Spark jobs in Python that process 2 billion sales rows a day.",
+                "grounded": true
+              },
+              {
+                "requirement": "dbt",
+                "kind": "nice",
+                "met": "yes",
+                "evidence_quote": "Led data modeling for the sales warehouse and moved transforms to dbt.",
+                "grounded": true
+              },
+              {
+                "requirement": "bigquery",
+                "kind": "nice",
+                "met": "no",
+                "evidence_quote": "",
+                "grounded": false
+              }
+            ],
+            "location_ok": true,
+            "years_ok": true,
+            "score": 0.9375,
+            "ungrounded": 0
+          },
+          {
+            "candidate_id": "c20",
+            "checks": [
+              {
+                "requirement": "sql",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Maintained Airflow DAGs and SQL models for finance reporting.",
+                "grounded": true
+              },
+              {
+                "requirement": "spark",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Built Spark pipelines in Python for booking events and loaded them into BigQuery.",
+                "grounded": true
+              },
+              {
+                "requirement": "airflow",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Maintained Airflow DAGs and SQL models for finance reporting.",
+                "grounded": true
+              },
+              {
+                "requirement": "data modeling",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Owned data modeling for the bookings mart.",
+                "grounded": true
+              },
+              {
+                "requirement": "python",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Built Spark pipelines in Python for booking events and loaded them into BigQuery.",
+                "grounded": true
+              },
+              {
+                "requirement": "dbt",
+                "kind": "nice",
+                "met": "no",
+                "evidence_quote": "",
+                "grounded": false
+              },
+              {
+                "requirement": "bigquery",
+                "kind": "nice",
+                "met": "yes",
+                "evidence_quote": "Built Spark pipelines in Python for booking events and loaded them into BigQuery.",
+                "grounded": true
+              }
+            ],
+            "location_ok": true,
+            "years_ok": true,
+            "score": 0.9375,
+            "ungrounded": 0
+          },
+          {
+            "candidate_id": "c21",
+            "checks": [
+              {
+                "requirement": "sql",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Wrote Python libraries and SQL standards for the data team.",
+                "grounded": true
+              },
+              {
+                "requirement": "spark",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Built PySpark ingestion for policy and claims data across 12 source systems.",
+                "grounded": true
+              },
+              {
+                "requirement": "airflow",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Ran orchestration on Apache Airflow with SLAs and alerting.",
+                "grounded": true
+              },
+              {
+                "requirement": "data modeling",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Led dimensional modeling (star schema) for the actuarial warehouse.",
+                "grounded": true
+              },
+              {
+                "requirement": "python",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Wrote Python libraries and SQL standards for the data team.",
+                "grounded": true
+              },
+              {
+                "requirement": "dbt",
+                "kind": "nice",
+                "met": "no",
+                "evidence_quote": "",
+                "grounded": false
+              },
+              {
+                "requirement": "bigquery",
+                "kind": "nice",
+                "met": "no",
+                "evidence_quote": "",
+                "grounded": false
+              }
+            ],
+            "location_ok": true,
+            "years_ok": true,
+            "score": 0.875,
+            "ungrounded": 0
+          }
+        ],
+        "drafts": [
+          {
+            "outreach": {
+              "candidate_id": "c19",
+              "subject": "Data Engineer role at Hirewise Labs",
+              "body": "Hi Manish,\n\nI'm reaching out from Hirewise Labs about our Data Engineer role. Your work caught our eye: building Spark jobs in Python that process 2 billion sales rows a day, and leading data modeling for a sales warehouse while moving transforms to dbt.\n\nThe role centers on building and maintaining reliable data pipelines and models, which seems close to the work you've been doing.\n\nWould you be open to a short call this week or next to hear more and see if it's a fit? Just let me know a time that suits you.\n\nBest regards,\nTalent team, Hirewise Labs"
+            },
+            "check": {
+              "word_count": 101,
+              "names_candidate": true,
+              "cites_evidence": true,
+              "no_placeholders": true,
+              "passed": true
+            }
+          },
+          {
+            "outreach": {
+              "candidate_id": "c20",
+              "subject": "Data Engineer role at Hirewise Labs",
+              "body": "Hi Ritika,\n\nI'm reaching out from Hirewise Labs about our Data Engineer role. Your work building Spark pipelines in Python for booking events and loading them into BigQuery caught our attention, as did owning the data modeling for the bookings mart.\n\nThe role centers on building and maintaining reliable data pipelines and models, which seems closely related to what you've been doing.\n\nWould you be open to a short call this week or next? I'd be happy to share more about the team and the work, and hear what you're looking for.\n\nThanks, and I hope to hear from you.\n\nTalent team, Hirewise Labs"
+            },
+            "check": {
+              "word_count": 104,
+              "names_candidate": true,
+              "cites_evidence": true,
+              "no_placeholders": true,
+              "passed": true
+            }
+          },
+          {
+            "outreach": {
+              "candidate_id": "c21",
+              "subject": "Data Engineer role at Hirewise Labs",
+              "body": "Hi Arvind,\n\nI'm reaching out from Hirewise Labs about our Data Engineer role. Your work building PySpark ingestion for policy and claims data across 12 source systems stood out to us, as did running orchestration on Apache Airflow with SLAs and alerting.\n\nThe role centers on building and maintaining reliable data pipelines, and we think your background lines up well with it.\n\nWould you be open to a short call this week or next? I'd be glad to share more about the team and the work, and to hear what you're looking for.\n\nWarm regards,\nTalent team, Hirewise Labs"
+            },
+            "check": {
+              "word_count": 99,
+              "names_candidate": true,
+              "cites_evidence": true,
+              "no_placeholders": true,
+              "passed": true
+            }
+          }
+        ],
+        "labels": {
+          "c19": 2,
+          "c20": 2,
+          "c21": 2,
+          "c25": 2,
+          "c22": 1
+        },
+        "top5": [
+          "c19",
+          "c20",
+          "c21",
+          "c25",
+          "c22"
+        ]
+      }
+    },
+    "llm-engineer": {
+      "parse": {
+        "must_precision": 1.0,
+        "must_recall": 1.0
+      },
+      "retrieval": {
+        "bm25": {
+          "recall@15": 1.0,
+          "ndcg@10": 0.7968429071728467
+        },
+        "dense": {
+          "recall@15": 1.0,
+          "ndcg@10": 0.9785509116948637
+        },
+        "hybrid": {
+          "recall@15": 1.0,
+          "ndcg@10": 0.9244098986359734
+        }
+      },
+      "rerank": {
+        "hybrid": {
+          "ndcg@5": 0.843668133758396,
+          "p@5": 1.0
+        },
+        "reranked": {
+          "ndcg@5": 1.0,
+          "p@5": 1.0
+        }
+      },
+      "grounding": {
+        "claimed": 56,
+        "grounded": 56,
+        "rate": 1.0
+      },
+      "traps": {
+        "hybrid": {
+          "stuffer": 0,
+          "synonym": 1,
+          "location": 1,
+          "seniority": 1,
+          "injection": 0
+        },
+        "reranked": {
+          "stuffer": 0,
+          "synonym": 1,
+          "location": 1,
+          "seniority": 0,
+          "injection": 0
+        }
+      },
+      "injection_probe": {
+        "max_score": 0.25,
+        "best_rank_if_inserted": 14,
+        "claimed": 0,
+        "ungrounded": 0,
+        "profiles_scored": 3
+      },
+      "outreach": {
+        "pass_rate": 1,
+        "n": 3
+      },
+      "end_to_end": {
+        "ndcg@5": 1.0
+      },
+      "sample": {
+        "top": [
+          {
+            "candidate_id": "c11",
+            "checks": [
+              {
+                "requirement": "python",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Built a RAG assistant over 40k support articles in Python with hybrid retrieval.",
+                "grounded": true
+              },
+              {
+                "requirement": "llm applications",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Built a RAG assistant over 40k support articles in Python with hybrid retrieval.",
+                "grounded": true
+              },
+              {
+                "requirement": "rag",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Built a RAG assistant over 40k support articles in Python with hybrid retrieval.",
+                "grounded": true
+              },
+              {
+                "requirement": "llm evaluation",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Wrote an LLM evaluation harness with golden sets and regression gates in CI.",
+                "grounded": true
+              },
+              {
+                "requirement": "prompt engineering",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Designed prompt engineering patterns and tool-calling agents for ticket triage.",
+                "grounded": true
+              },
+              {
+                "requirement": "agents",
+                "kind": "nice",
+                "met": "yes",
+                "evidence_quote": "Designed prompt engineering patterns and tool-calling agents for ticket triage.",
+                "grounded": true
+              },
+              {
+                "requirement": "vector search",
+                "kind": "nice",
+                "met": "partial",
+                "evidence_quote": "Built a RAG assistant over 40k support articles in Python with hybrid retrieval.",
+                "grounded": true
+              }
+            ],
+            "location_ok": true,
+            "years_ok": true,
+            "score": 0.96875,
+            "ungrounded": 0
+          },
+          {
+            "candidate_id": "c12",
+            "checks": [
+              {
+                "requirement": "python",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Built Python churn models and dashboards.",
+                "grounded": true
+              },
+              {
+                "requirement": "llm applications",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Shipped a generative AI clinical-notes summariser used by 300 doctors.",
+                "grounded": true
+              },
+              {
+                "requirement": "rag",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Built RAG over medical guidelines with pgvector and reranking.",
+                "grounded": true
+              },
+              {
+                "requirement": "llm evaluation",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Ran evals comparing prompts and models on accuracy and cost before every release.",
+                "grounded": true
+              },
+              {
+                "requirement": "prompt engineering",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Wrote prompting guidelines and structured-output schemas for the team.",
+                "grounded": true
+              },
+              {
+                "requirement": "agents",
+                "kind": "nice",
+                "met": "no",
+                "evidence_quote": "",
+                "grounded": false
+              },
+              {
+                "requirement": "vector search",
+                "kind": "nice",
+                "met": "yes",
+                "evidence_quote": "Built RAG over medical guidelines with pgvector and reranking.",
+                "grounded": true
+              }
+            ],
+            "location_ok": true,
+            "years_ok": true,
+            "score": 0.9375,
+            "ungrounded": 0
+          },
+          {
+            "candidate_id": "c13",
+            "checks": [
+              {
+                "requirement": "python",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Shipped GenAI features in Python with prompt design reviews and embeddings-based search.",
+                "grounded": true
+              },
+              {
+                "requirement": "llm applications",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Shipped GenAI features in Python with prompt design reviews and embeddings-based search.",
+                "grounded": true
+              },
+              {
+                "requirement": "rag",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Built retrieval-augmented generation over contracts so lawyers get cited answers.",
+                "grounded": true
+              },
+              {
+                "requirement": "llm evaluation",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Created LLM-as-judge test suites that score answer faithfulness on every prompt change.",
+                "grounded": true
+              },
+              {
+                "requirement": "prompt engineering",
+                "kind": "must",
+                "met": "yes",
+                "evidence_quote": "Shipped GenAI features in Python with prompt design reviews and embeddings-based search.",
+                "grounded": true
+              },
+              {
+                "requirement": "agents",
+                "kind": "nice",
+                "met": "no",
+                "evidence_quote": "",
+                "grounded": false
+              },
+              {
+                "requirement": "vector search",
+                "kind": "nice",
+                "met": "partial",
+                "evidence_quote": "Shipped GenAI features in Python with prompt design reviews and embeddings-based search.",
+                "grounded": true
+              }
+            ],
+            "location_ok": true,
+            "years_ok": true,
+            "score": 0.90625,
+            "ungrounded": 0
+          }
+        ],
+        "drafts": [
+          {
+            "outreach": {
+              "candidate_id": "c11",
+              "subject": "LLM Engineer role at Hirewise Labs",
+              "body": "Hi Aditya,\n\nI'm reaching out from Hirewise Labs about our LLM Engineer role. Your work caught our eye: building a RAG assistant in Python over 40k support articles with hybrid retrieval, and writing an LLM evaluation harness with golden sets and regression gates in CI. That mix of building and measuring is what this role is about.\n\nThe role involves designing and shipping LLM applications, and keeping their quality steady as they grow.\n\nWould you be open to a short call this week or next? I'd be happy to share more about the team and what you'd work on, and to hear what you're looking for.\n\nWarm regards,\nTalent team, Hirewise Labs"
+            },
+            "check": {
+              "word_count": 112,
+              "names_candidate": true,
+              "cites_evidence": true,
+              "no_placeholders": true,
+              "passed": true
+            }
+          },
+          {
+            "outreach": {
+              "candidate_id": "c12",
+              "subject": "LLM Engineer role at Hirewise Labs",
+              "body": "Hi Meera,\n\nI came across your work on a generative AI clinical-notes summariser used by 300 doctors, and your RAG project over medical guidelines with pgvector and reranking. Both stood out to us.\n\nWe're hiring an LLM Engineer at Hirewise Labs, building and shipping LLM-powered features. Your habit of running evals on accuracy and cost before each release is the kind of rigor we value.\n\nWould you be open to a short call this week or next to hear more? If so, tell me a time that suits you.\n\nWarm regards,\nTalent team, Hirewise Labs"
+            },
+            "check": {
+              "word_count": 95,
+              "names_candidate": true,
+              "cites_evidence": true,
+              "no_placeholders": true,
+              "passed": true
+            }
+          },
+          {
+            "outreach": {
+              "candidate_id": "c13",
+              "subject": "LLM Engineer role at Hirewise Labs",
+              "body": "Hi Farhan,\n\nI'm reaching out from Hirewise Labs about our LLM Engineer role. Your work caught our attention, especially the retrieval-augmented generation you built over contracts so lawyers get cited answers. We also liked that you created LLM-as-judge test suites that score answer faithfulness on every prompt change.\n\nThe role centres on building and shipping LLM-powered features, and it looks like a close match with what you've done.\n\nWould you be open to a short call this week or next? I'd be glad to share more about the team and the work, and hear what you're looking for.\n\nWarm regards,\nTalent team, Hirewise Labs"
+            },
+            "check": {
+              "word_count": 104,
+              "names_candidate": true,
+              "cites_evidence": true,
+              "no_placeholders": true,
+              "passed": true
+            }
+          }
+        ],
+        "labels": {
+          "c11": 2,
+          "c12": 2,
+          "c13": 2,
+          "c17": 2,
+          "c14": 1
+        },
+        "top5": [
+          "c11",
+          "c12",
+          "c13",
+          "c17",
+          "c14"
+        ]
+      }
+    }
+  }
+}

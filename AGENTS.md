@@ -9,17 +9,18 @@ outreach drafts, on a labelled synthetic dataset. Every stage has an eval.
 uv sync                                            # install
 uv run pytest -q                                   # offline tests, no API key needed
 uv run python -m sourcelens.eval --mode replay     # eval from recorded LLM calls ($0)
-uv run python -m sourcelens.eval --mode live       # call Gemini, record new responses
+uv run python -m sourcelens.eval --mode live       # call the model, record new responses
 uv run python -m sourcelens.run data/jds/llm-engineer.yaml [--agent]
 ```
 
-Live mode needs `GEMINI_API_KEY` in `.env` (see `.env.example`). Never print or commit the key.
+Live mode calls the Claude Code CLI (`claude -p`, the user's own login) with local fastembed embeddings, or Gemini when
+`GEMINI_API_KEY` is set in `.env` (`SOURCELENS_PROVIDER` overrides). Never print or commit a key.
 
 ## Layout
 
 | Path | What it holds |
 |---|---|
-| `src/sourcelens/llm.py` | The only Gemini client. Record/replay disk cache, throttle, retry |
+| `src/sourcelens/llm.py` | The only model client (Claude Code CLI or Gemini; local embeddings). Record/replay cache, throttle, retry |
 | `src/sourcelens/models.py`, `data.py` | Pydantic types and dataset loaders |
 | `src/sourcelens/jd_parser.py` | JD text to `Requirements`; requirement-name matching (`norm`) |
 | `src/sourcelens/retrieve.py` | BM25, dense embeddings, reciprocal rank fusion |

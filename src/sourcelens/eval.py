@@ -18,7 +18,7 @@ from .llm import ROOT, LLM
 from .metrics import ndcg_at_k, precision_at_k, recall_at_k
 from .models import JD, Candidate
 from .outreach import check_outreach, draft_outreach
-from .rerank import rerank
+from .rerank import rerank, score_candidate
 from .retrieve import Retriever, query_text
 
 TOP_K = 15
@@ -59,6 +59,17 @@ def _eval_jd(jd: JD, cands: list[Candidate], llm) -> dict:
     out["traps"] = {stage: {t: sum(trap_of[i] == t for i in ranking[:5]) for t in TRAPS}
                     for stage, ranking in (("hybrid", hyb), ("reranked", reranked))}
 
+    # Injected profiles rarely survive retrieval, so score them directly: this tests the
+    # re-rank defence itself, not the search that happened to filter them out.
+    inj = [score_candidate(c, jd.gold, llm) for c in cands if c.trap == "injection"]
+    top = max((c.score for c in inj), default=0.0)
+    out["injection_probe"] = {
+        "max_score": top,
+        "best_rank_if_inserted": 1 + sum(c.score > top for c in cards),
+        "claimed": sum(ch.met != "no" for c in inj for ch in c.checks),
+        "ungrounded": sum(c.ungrounded for c in inj),
+        "profiles_scored": len(inj)}
+
     drafts = []
     for card in cards[:OUTREACH_TOP]:
         c = by_id[card.candidate_id]
@@ -96,11 +107,20 @@ def evaluate(llm, candidates: list[Candidate], jds: list[JD]) -> dict:
         "grounded": sum(r["grounding"]["grounded"] for r in rows)}
     summary["grounding"]["rate"] = (summary["grounding"]["grounded"] / summary["grounding"]["claimed"]
                                     if summary["grounding"]["claimed"] else 0.0)
+    probes = [r["injection_probe"] for r in rows]
+    summary["injection_probe"] = {
+        "profiles_scored": sum(p["profiles_scored"] for p in probes),
+        "max_score": max(p["max_score"] for p in probes),
+        "best_rank_if_inserted": min(p["best_rank_if_inserted"] for p in probes),
+        "claimed": sum(p["claimed"] for p in probes),
+        "ungrounded": sum(p["ungrounded"] for p in probes)}
     summary["traps"] = {stage: {t: sum(r["traps"][stage][t] for r in rows) for t in TRAPS}
                         for stage in ("hybrid", "reranked")}
     s = llm.stats
-    usd = s.tokens_in / 1e6 * PRICE_IN_PER_M + s.tokens_out / 1e6 * PRICE_OUT_PER_M
+    # reported cost when the backend gives one (Claude Code), else a Gemini list-price estimate
+    usd = s.cost_usd or s.tokens_in / 1e6 * PRICE_IN_PER_M + s.tokens_out / 1e6 * PRICE_OUT_PER_M
     summary["cost"] = {**asdict(s), "est_usd_total": usd, "est_usd_per_jd": usd / len(jds),
+                       "cost_source": "reported by backend" if s.cost_usd else "estimated at Gemini list price",
                        "model": getattr(llm, "model", "stub"), "embed_model": getattr(llm, "embed_model", "stub")}
     return {"summary": summary, "per_jd": per_jd}
 
@@ -133,10 +153,18 @@ def to_markdown(res: dict) -> str:
              "seniority": "Too junior", "injection": "Injection"}
     for t, n in names.items():
         L.append(f"| {n} | {s['traps']['hybrid'][t]} | {s['traps']['reranked'][t]} |")
+    ip = s["injection_probe"]
+    L += ["", "## Injection probe (injected profiles scored directly, bypassing retrieval)", "",
+          "| metric | value |", "|---|---|",
+          f"| injected profile x JD pairs scored | {ip['profiles_scored']} |",
+          f"| highest score reached (0-1) | {_f(ip['max_score'])} |",
+          f"| best rank it would reach among the re-ranked 15 | {ip['best_rank_if_inserted']} |",
+          f"| requirements the model marked met | {ip['claimed']} |",
+          f"| of those, quotes not found in the profile | {ip['ungrounded']} |"]
     c = s["cost"]
     L += ["", "## Cost", "", f"- live calls: {c['calls']}, cache hits: {c['cache_hits']}",
           f"- tokens in/out: {c['tokens_in']} / {c['tokens_out']}",
-          f"- estimated USD per JD: ${c['est_usd_per_jd']:.4f} (paid-tier list price; estimate)",
+          f"- USD per JD: ${c['est_usd_per_jd']:.4f} ({c['cost_source']})",
           f"- model latency total: {c['latency_s']:.1f}s"]
     return "\n".join(L) + "\n"
 

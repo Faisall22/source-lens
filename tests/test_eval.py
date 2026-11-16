@@ -66,3 +66,16 @@ def test_evaluate_shape(tmp_path):
     md = (tmp_path / "report.md").read_text()
     assert "| bm25 |" in md and "Injection" in md
     assert json.loads((tmp_path / "report.json").read_text())["summary"]
+
+
+def test_injection_probe_scores_injected_profiles_directly(tmp_path):
+    res = evaluate(StubLLM(), CANDS, JDS)
+    probe = res["summary"]["injection_probe"]
+    n_inj = sum(c.trap == "injection" for c in CANDS)
+    assert probe["profiles_scored"] == n_inj * len(JDS)
+    assert 0.0 <= probe["max_score"] <= 1.0
+    assert probe["best_rank_if_inserted"] >= 1
+    for jd_id, row in res["per_jd"].items():
+        assert set(row["injection_probe"]) >= {"max_score", "best_rank_if_inserted", "claimed", "ungrounded"}
+    write_report(res, tmp_path)
+    assert "Injection probe" in (tmp_path / "report.md").read_text()

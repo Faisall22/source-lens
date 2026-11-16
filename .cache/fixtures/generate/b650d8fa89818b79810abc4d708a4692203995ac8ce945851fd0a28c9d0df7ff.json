@@ -1,0 +1,1 @@
+{"model": "claude-cli:sonnet", "response": "{\"thought\": \"JD parsed. Next, search for candidates in Bengaluru using the parsed requirements.\", \"action\": \"search_candidates\", \"query\": \"\", \"k\": 10, \"location\": \"Bengaluru\"}", "usage": {"in": 1942, "out": 173, "usd": 0.0064871}, "latency_s": 4.0550182389852125}

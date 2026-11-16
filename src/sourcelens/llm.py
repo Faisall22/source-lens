@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import subprocess
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -77,6 +78,64 @@ class GeminiBackend:
         return out
 
 
+class ClaudeCLIBackend:
+    """Structured output through a headless Claude Code call (`claude -p`), no API key.
+
+    The session is stripped to a bare JSON API: own system prompt, no tools, no MCP
+    servers, no skills, no settings, no saved session. That keeps each call to ~1K tokens.
+    """
+
+    def __init__(self, model: str = "sonnet", runner: Callable = subprocess.run, timeout: int = 300):
+        self.model, self.runner, self.timeout = model, runner, timeout
+
+    def generate_json(self, model, system, prompt, schema):
+        cmd = ["claude", "-p", prompt, "--output-format", "json",
+               "--json-schema", json.dumps(schema.model_json_schema()),
+               "--model", self.model, "--system-prompt", system or "You are a JSON API. Follow the schema.",
+               "--tools", "", "--strict-mcp-config", "--mcp-config", '{"mcpServers":{}}',
+               "--disable-slash-commands", "--setting-sources", "", "--no-session-persistence"]
+        proc = self.runner(cmd, capture_output=True, text=True, timeout=self.timeout)
+        try:
+            out = json.loads(proc.stdout)
+        except json.JSONDecodeError as e:
+            raise RuntimeError(f"claude -p returned non-JSON: {proc.stdout[:200]!r} {proc.stderr[:200]!r}") from e
+        if out.get("is_error") or out.get("structured_output") is None:
+            raise RuntimeError(f"claude -p failed: {out.get('result') or out.get('terminal_reason')}")
+        u = out.get("usage", {})
+        usage = {"in": u.get("input_tokens", 0) + u.get("cache_creation_input_tokens", 0)
+                 + u.get("cache_read_input_tokens", 0),
+                 "out": u.get("output_tokens", 0), "usd": out.get("total_cost_usd", 0.0)}
+        return json.dumps(out["structured_output"]), usage
+
+    def embed(self, model, texts, task):
+        raise NotImplementedError("Claude Code has no embeddings; pair it with an embedder")
+
+
+class FastEmbedBackend:
+    """Local CPU embeddings (fastembed, ONNX). No key, no network after the first model download."""
+
+    def __init__(self, model: str = "BAAI/bge-small-en-v1.5"):
+        from fastembed import TextEmbedding
+
+        self.model = TextEmbedding(model_name=model)
+
+    def embed(self, model, texts, task):
+        return [list(map(float, v)) for v in self.model.embed(list(texts))]
+
+
+class CompositeBackend:
+    """One backend for generation, another for embeddings."""
+
+    def __init__(self, generator, embedder):
+        self.generator, self.embedder = generator, embedder
+
+    def generate_json(self, model, system, prompt, schema):
+        return self.generator.generate_json(model, system, prompt, schema)
+
+    def embed(self, model, texts, task):
+        return self.embedder.embed(model, texts, task)
+
+
 @dataclass
 class Stats:
     calls: int = 0
@@ -84,6 +143,7 @@ class Stats:
     tokens_in: int = 0
     tokens_out: int = 0
     latency_s: float = 0.0
+    cost_usd: float = 0.0
 
 
 def _key(*parts) -> str:
@@ -111,6 +171,15 @@ class LLM:
 
         load_dotenv(ROOT / ".env")
         key = os.getenv("GEMINI_API_KEY")
+        provider = os.getenv("SOURCELENS_PROVIDER") or ("gemini" if key else "claude-cli")
+        if provider == "claude-cli":
+            # ponytail: model names live in the cache key, so Gemini and Claude runs never mix
+            gen_model = os.getenv("CLAUDE_MODEL", "sonnet")
+            emb_model = os.getenv("LOCAL_EMBED_MODEL", "BAAI/bge-small-en-v1.5")
+            backend = (CompositeBackend(ClaudeCLIBackend(gen_model), FastEmbedBackend(emb_model))
+                       if mode == "live" else None)
+            return cls(mode=mode, backend=backend, rpm=int(os.getenv("CLAUDE_RPM", "60")),
+                       model=f"claude-cli:{gen_model}", embed_model=f"fastembed:{emb_model}")
         if mode == "live" and not key:
             raise RuntimeError("GEMINI_API_KEY not set (add it to .env, or use --mode replay)")
         return cls(mode=mode, backend=GeminiBackend(key) if mode == "live" else None)
@@ -162,6 +231,7 @@ class LLM:
         self.stats.tokens_in += usage["in"]
         self.stats.tokens_out += usage["out"]
         self.stats.latency_s += dt
+        self.stats.cost_usd += usage.get("usd", 0.0)
         return obj
 
     def embed(self, texts: list[str], task: str = "RETRIEVAL_DOCUMENT") -> np.ndarray:

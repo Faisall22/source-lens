@@ -1,0 +1,1 @@
+{"model": "claude-cli:sonnet", "response": "{\"thought\": \"Starting with parsing the JD, as required first.\", \"action\": \"parse_jd\"}", "usage": {"in": 1787, "out": 91, "usd": 0.008054}, "latency_s": 3.8393773430143483}

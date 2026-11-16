@@ -1,0 +1,1 @@
+{"model": "claude-cli:sonnet", "response": "{\"title\": \"Senior Backend Engineer\", \"must_have\": [\"backend apis\", \"kafka\", \"postgresql\", \"microservices\"], \"nice_to_have\": [\"kubernetes\", \"aws\", \"go\"], \"min_years\": 5, \"location\": \"Bengaluru\", \"remote_ok\": false}", "usage": {"in": 1583, "out": 219, "usd": 0.0059011}, "latency_s": 3.3619762809830718}
