@@ -7,3 +7,4 @@ runs/*
 !runs/reference/
 .cache/*
 !.cache/fixtures/
+docs/superpowers/
