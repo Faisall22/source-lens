@@ -1,1 +1,9 @@
 .superpowers/
+.env
+.venv/
+__pycache__/
+*.pyc
+runs/*
+!runs/reference/
+.cache/*
+!.cache/fixtures/

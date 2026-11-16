@@ -1,0 +1,67 @@
+id: data-engineer
+company: Hirewise Labs
+title: Data Engineer
+text: 'Hirewise Labs is hiring a Data Engineer based in Pune; remote within India
+  is fine. You will own the pipelines behind our hiring analytics. Must have: 4+ years
+  with SQL, Spark, Airflow, data modeling and Python. Nice to have: dbt, BigQuery.'
+gold:
+  title: Data Engineer
+  must_have:
+  - sql
+  - spark
+  - airflow
+  - data modeling
+  - python
+  nice_to_have:
+  - dbt
+  - bigquery
+  min_years: 4
+  location: Pune
+  remote_ok: true
+aliases:
+  sql: []
+  spark:
+  - pyspark
+  - apache spark
+  airflow:
+  - apache airflow
+  - orchestration
+  data modeling:
+  - dimensional modeling
+  - data modelling
+  - star schema
+  python: []
+  dbt: []
+  bigquery:
+  - google bigquery
+labels:
+  c01: 0
+  c02: 0
+  c03: 0
+  c04: 0
+  c05: 0
+  c06: 0
+  c07: 0
+  c08: 0
+  c09: 0
+  c10: 0
+  c11: 0
+  c12: 0
+  c13: 0
+  c14: 0
+  c15: 0
+  c16: 0
+  c17: 0
+  c18: 0
+  c19: 2
+  c20: 2
+  c21: 2
+  c22: 1
+  c23: 1
+  c24: 1
+  c25: 2
+  c26: 0
+  c27: 0
+  c28: 0
+  c29: 0
+  c30: 0

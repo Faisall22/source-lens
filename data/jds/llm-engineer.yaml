@@ -1,0 +1,80 @@
+id: llm-engineer
+company: Hirewise Labs
+title: LLM Engineer
+text: 'Hirewise Labs is hiring an LLM Engineer in Bengaluru (on-site). You will ship
+  LLM features in our recruiting product. Must have: 3+ years of Python, shipped LLM
+  applications to users, built RAG systems, set up LLM evaluation (golden sets, judges,
+  regression checks), and solid prompt engineering. Nice to have: LLM agents with
+  tool calling, vector search.'
+gold:
+  title: LLM Engineer
+  must_have:
+  - python
+  - llm applications
+  - rag
+  - llm evaluation
+  - prompt engineering
+  nice_to_have:
+  - agents
+  - vector search
+  min_years: 3
+  location: Bengaluru
+  remote_ok: false
+aliases:
+  python: []
+  llm applications:
+  - llm apps
+  - generative ai
+  - genai
+  - llm features
+  rag:
+  - retrieval-augmented generation
+  - retrieval augmented generation
+  llm evaluation:
+  - evaluation
+  - evals
+  - llm-as-judge
+  - llm evals
+  prompt engineering:
+  - prompting
+  - prompt design
+  agents:
+  - llm agents
+  - tool calling
+  - ai agents
+  - tool-calling agents
+  vector search:
+  - embeddings
+  - vector database
+  - pgvector
+labels:
+  c01: 0
+  c02: 0
+  c03: 0
+  c04: 0
+  c05: 0
+  c06: 0
+  c07: 0
+  c08: 0
+  c09: 0
+  c10: 0
+  c11: 2
+  c12: 2
+  c13: 2
+  c14: 1
+  c15: 1
+  c16: 1
+  c17: 2
+  c18: 1
+  c19: 0
+  c20: 0
+  c21: 0
+  c22: 0
+  c23: 0
+  c24: 0
+  c25: 0
+  c26: 0
+  c27: 0
+  c28: 0
+  c29: 0
+  c30: 0

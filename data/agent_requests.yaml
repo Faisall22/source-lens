@@ -1,0 +1,21 @@
+- id: r-backend
+  jd_id: backend-senior
+  count: 3
+  location: Bengaluru
+  min_years: 5
+  request: Find 3 senior backend engineers in Bengaluru for this JD and draft outreach
+    to each.
+- id: r-llm
+  jd_id: llm-engineer
+  count: 3
+  location: Bengaluru
+  min_years: 3
+  request: I need 3 strong LLM engineers in Bengaluru who have shipped RAG and evals.
+    Shortlist them and write outreach.
+- id: r-data
+  jd_id: data-engineer
+  count: 3
+  location: Pune
+  min_years: 4
+  request: Shortlist 3 data engineers for this role (Pune or remote in India) and
+    draft a message for each.
